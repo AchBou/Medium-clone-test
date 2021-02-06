@@ -3,6 +3,7 @@ const router = express.Router();
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+// JWT secret. TODO: externalizing this and deleting it from archive/Prod
 const mySecret = 'achraf123';
 
 // Test Data
@@ -24,6 +25,7 @@ router.post('/signup', (req, res) => {
         return;
     }
 
+    // Hashing the pwd stored in the DB
     const hashedPassword = getHashedPassword(password);
     // Storing the user into the database
     users.push({

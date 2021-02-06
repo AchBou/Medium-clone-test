@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 
+// JWT secret. TODO: externalizing this and deleting it from archive/Prod
 const mySecret = 'achraf123';
 
 
@@ -14,9 +15,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//the middleware for handling non-authenticated requests
 const requireAuth = (req, res, next) => {
+    //URLs that dont need authentication
     let openURLs = ['/','/login','/signup'];
+    // token coming from the request header
     let token= req.headers.token
+
     if(openURLs.includes(req.path) ){
         next();
     }
