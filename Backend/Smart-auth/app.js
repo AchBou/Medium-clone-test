@@ -10,6 +10,7 @@ const mySecret = 'achraf123';
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
+const apiRouter = require('./routes/api');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use(requireAuth);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 const port = process.env.PORT || '3000';
 app.set('port', port);

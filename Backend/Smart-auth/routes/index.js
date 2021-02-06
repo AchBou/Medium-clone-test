@@ -3,6 +3,7 @@ const router = express.Router();
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+
 // JWT secret. TODO: externalizing this and deleting it from archive/Prod
 const mySecret = 'achraf123';
 
@@ -50,7 +51,7 @@ router.post('/login', (req, res) => {
 
     if (user) {
         // generate an auth token to be used for the login
-        const token = jwt.sign({ user: user.username }, mySecret);
+        const token = jwt.sign({'user': user.username }, mySecret);
         console.log(token)
         res.send('User successfully authenticated');
     } else {
