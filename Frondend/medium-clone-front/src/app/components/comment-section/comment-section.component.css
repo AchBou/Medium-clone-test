@@ -1,16 +1,17 @@
 mat-card {
-  background-color: aliceblue;
+  background-color: #ded1f4;
 }
-
 
 .new-field {
   width: 100%;
+  padding: 10px;
 }
 
 
 textarea{
+  width: 95%;
   background-color: white;
-  padding: 100px;
+  padding: 10px;
 }
 
 
