@@ -4,3 +4,10 @@
 .reactions mat-icon{
   margin-left: 20px;
 }
+.actions{
+  float: right;
+}
+
+.actions mat-icon{
+  margin-right: 15px;
+}

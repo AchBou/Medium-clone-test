@@ -1,0 +1,17 @@
+.search-result{
+  margin-top: 20px;
+}
+
+.element{
+  margin-top: 10px;
+}
+
+h3{
+  color:darkgrey;
+  text-align: end;
+}
+
+mat-divider{
+  margin: 10px auto;
+  width: 70%;
+}

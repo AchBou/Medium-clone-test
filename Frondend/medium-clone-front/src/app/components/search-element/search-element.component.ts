@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-search-element',
@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-element.component.css']
 })
 export class SearchElementComponent implements OnInit {
+  @Input() result;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

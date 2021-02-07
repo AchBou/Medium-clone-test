@@ -1,1 +1,9 @@
-<p>search-section works!</p>
+<div class="searchbar">
+  <app-searchbar></app-searchbar>
+</div>
+
+<mat-divider></mat-divider>
+<h3>{{results.length}} results found</h3>
+<div class="search-result">
+  <app-search-element class="element" *ngFor="let result of results" [result]="result"></app-search-element>
+</div>

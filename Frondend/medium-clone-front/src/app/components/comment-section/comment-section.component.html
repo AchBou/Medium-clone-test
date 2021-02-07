@@ -1,11 +1,15 @@
 <mat-card>
   <app-comment></app-comment>
+  <div class="new">
+    <form class="comment-form">
+      <mat-form-field class="new-field">
+        <mat-label>Leave a comment</mat-label>
+        <textarea rows="4" matInput placeholder="Write a comment..."></textarea>
+      </mat-form-field>
+    </form>
+    <div class="btn">
+      <button mat-raised-button color="primary">Comment</button>
+    </div>
+  </div>
 
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput placeholder="Write a comment..."></textarea>
-    </mat-form-field>
-  </form>
-  <button mat-raised-button color="primary">Comment</button>
 </mat-card>

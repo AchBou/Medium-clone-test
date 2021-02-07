@@ -18,6 +18,9 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary">Submit</button>
+    <mat-checkbox class="example-margin" [(ngModel)]="checked" [formControl]="checkBoxControl">Checked</mat-checkbox>
+
   </form>
+
+  <button mat-flat-button color="primary">Submit</button>
 </div>

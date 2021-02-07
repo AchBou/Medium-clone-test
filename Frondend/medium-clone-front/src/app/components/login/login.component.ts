@@ -7,7 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  checked = true;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   pwdFormControl = new FormControl('', [
     Validators.required,
   ]);
+
+  checkBoxControl = new FormControl('auto');
 
   constructor() { }
 

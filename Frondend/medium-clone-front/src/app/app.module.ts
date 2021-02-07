@@ -18,6 +18,7 @@ import { SearchElementComponent } from './components/search-element/search-eleme
 import { AuthSpaceComponent } from './components/auth-space/auth-space.component';
 import { HomeComponent } from './components/home/home.component';
 import { CommentSectionComponent } from './components/comment-section/comment-section.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -40,7 +41,8 @@ import { CommentSectionComponent } from './components/comment-section/comment-se
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
