@@ -1,6 +1,14 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list>
+<div class="container" fxLayout="row" fxLayoutAlign="space-between">
+  <div fxFlex="66" class="col">
+    <app-article></app-article>
+    <div>
+      <app-comment-section></app-comment-section>
+    </div>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+
+  <div fxFlex="33" class="col">
+        <app-search-section></app-search-section>
+  </div>
+
+</div>

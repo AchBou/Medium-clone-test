@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,6 +17,7 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { SearchElementComponent } from './components/search-element/search-element.component';
 import { AuthSpaceComponent } from './components/auth-space/auth-space.component';
 import { HomeComponent } from './components/home/home.component';
+import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 
 
 
@@ -31,12 +33,14 @@ import { HomeComponent } from './components/home/home.component';
     SearchElementComponent,
     AuthSpaceComponent,
     HomeComponent,
+    CommentSectionComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

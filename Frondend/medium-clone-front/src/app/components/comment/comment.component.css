@@ -1,0 +1,19 @@
+.comment{
+  background-color: white;
+  width:70%;
+  display: inline-block;
+  margin-left:20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.icon{
+  display: inline-block;
+}
+
+img{
+  position: relative;
+  top: 5%;
+  width: 50px;
+  border-radius: 25%;
+}
