@@ -5,8 +5,17 @@ const request = require('request');
 
 /* GET Resource */
 router.get('/*', function(req, res, next) {
-    request('http://localhost:8000/api'+req.path, { json: true }, (err, rs, body) => {
+    let options = {
+        uri: 'http://localhost:8000/api'+req.path,
+        body: JSON.stringify(req.body),
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    }
+    request(options,  (err, rs, body) => {
         if (err) { return console.log(err); }
+        //console.log(body)
         res.send(body)
     });
 });
@@ -56,7 +65,6 @@ router.delete('/*', function(req, res, next) {
     }
     request(options, (err, rs, body) => {
         if (err) { return console.log(err); }
-        console.log(body);
         res.send(body)
     });
 });

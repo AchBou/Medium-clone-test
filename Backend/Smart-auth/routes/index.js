@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
+const userDAO=require('../DAO/userDAO');
 const jwt = require('jsonwebtoken');
 
 
@@ -18,25 +19,34 @@ router.get('/', function(req, res, next) {
 
 /* registering a user */
 router.post('/signup', (req, res) => {
-    const { email, firstName, lastName, password, confirmPassword } = req.body;
-
-    // Checking if user with the same email is also registered
-    if (users.find(user => user.email === email)) {
-        res.send('User already exists');
-        return;
-    }
+    const { email, username, role, password } = req.body;
 
     // Hashing the pwd stored in the DB
     const hashedPassword = getHashedPassword(password);
-    // Storing the user into the database
-    users.push({
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword
-    });
 
-    res.send('Regisetred Succefully');
+    let data=[username,hashedPassword,email,role];
+
+    // Checking if user with the same email is also registered
+    userDAO.getUserByLoginInfo( [email],function (err, result) {
+        if (err) {
+            res.json(err) }
+        else {
+            {
+                if(result[0]) {
+                    res.send('User already exits')
+                }
+                else {
+                    // Storing the user into the database
+                    userDAO.addUser( data,function (err, result) {
+                        if (err) {
+                            res.send(err) }
+                        else{
+                            res.json(result.affectedRows); }
+                    });
+                }
+            }
+        }
+    });
 
 });
 
@@ -45,18 +55,20 @@ router.post('/login', (req, res) => {
     const { email, password } = req.body;
     const hashedPassword = getHashedPassword(password);
 
-    const user = users.find(u => {
-        return u.email === email && hashedPassword === u.password
+    userDAO.getUserByLoginInfo( [email],function (err, result) {
+        if (err) {
+            res.json(err) }
+        else {
+            {
+                if(result[0] && result[0].password==hashedPassword)
+                { const Token = jwt.sign({"user_id": result[0].id}, mySecret);
+                    res.json(Token); }
+                else res.send("utilisateur ou mot de passe inconnu");
+            }
+
+        }
     });
 
-    if (user) {
-        // generate an auth token to be used for the login
-        const token = jwt.sign({'user': user.username }, mySecret);
-        console.log(token)
-        res.send('User successfully authenticated');
-    } else {
-        res.send('Invalid username or password');
-    }
 });
 
 

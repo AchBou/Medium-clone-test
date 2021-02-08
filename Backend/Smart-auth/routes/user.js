@@ -1,19 +1,27 @@
 const express = require('express');
 const router = express.Router();
-
-// Test Data
-let users = require('../mockData.json')
-
+const userDAO=require('../DAO/userDAO');
 
 /* list users */
 router.get('/', function(req, res, next) {
-    res.send(users);
+    let user = userDAO.listUsers([],function (err,rs){
+        if(err){console.error(err)}
+        else{
+            let user = rs[0]
+            res.send(user);
+        }
+    });
 });
 
 /* get a user by Id */
 router.get('/:id', function(req, res, next) {
-    let id = req.params.id-1
-    res.send(users[id]);
+    let user = userDAO.getUserById([req.params.id],function (err,rs){
+        if(err){console.error(err)}
+        else{
+            let user = rs[0]
+            res.send(user);
+        }
+    });
 });
 
 
