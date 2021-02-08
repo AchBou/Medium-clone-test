@@ -19,6 +19,7 @@ import { AuthSpaceComponent } from './components/auth-space/auth-space.component
 import { HomeComponent } from './components/home/home.component';
 import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 
 
@@ -38,6 +39,7 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

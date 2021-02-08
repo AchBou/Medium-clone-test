@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  checked = true;
+  checked = false;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
