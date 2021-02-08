@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 
+//uri for the api backend, TODO: Add it to a configuration file
+const uri = 'http://localhost:8001/api'
 
 /* GET Resource */
 router.get('/*', function(req, res, next) {
     let options = {
-        uri: 'http://localhost:8000/api'+req.path,
+        uri: uri+req.path,
         body: JSON.stringify(req.body),
         method: 'GET',
         headers: {
@@ -24,7 +26,7 @@ router.get('/*', function(req, res, next) {
 /* Post Resource */
 router.post('/*', function(req, res, next) {
     let options = {
-        uri: 'http://localhost:8000/api'+req.path,
+        uri: uri+req.path,
         body: JSON.stringify(req.body),
         method: 'POST',
         headers: {
@@ -40,7 +42,7 @@ router.post('/*', function(req, res, next) {
 /* Update Resource*/
 router.put('/*', function(req, res, next) {
     let options = {
-        uri: 'http://localhost:8000/api'+req.path,
+        uri: uri+req.path,
         body: JSON.stringify(req.body),
         method: 'PUT',
         headers: {
@@ -57,7 +59,7 @@ router.put('/*', function(req, res, next) {
 /* get a user by Id */
 router.delete('/*', function(req, res, next) {
     let options = {
-        uri: 'http://localhost:8000/api'+req.path,
+        uri: uri+req.path,
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
