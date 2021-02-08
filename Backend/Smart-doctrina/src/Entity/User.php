@@ -7,9 +7,12 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}}
+ *)
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
@@ -19,36 +22,43 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user:read", "article:read", "comment:read", "reaction:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read", "user:write", "article:read", "comment:read", "reaction:read"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read", "user:write"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:write"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read", "user:write"})
      */
     private $role;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"user:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"user:read"})
      */
     private $updatedAt;
 

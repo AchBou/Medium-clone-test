@@ -7,9 +7,12 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"article:read"}},
+ *     denormalizationContext={"groups"={"article:write"}}
+ *)
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
@@ -18,57 +21,68 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"article:read", "article:write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"article:read", "article:write"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"article:read", "article:write"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"article:read", "article:write"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"article:read", "article:write"})
      */
     private $draft;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"article:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"article:read"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="articles")
+     * @Groups({"article:read", "article:write"})
      */
     private $tags;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"article:read", "article:write"})
      */
     private $owner;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article")
+     * @Groups({"article:read"})
      */
     private $comment;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="article")
+     * @Groups({"article:read"})
      */
     private $reaction;
 
