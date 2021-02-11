@@ -16,8 +16,14 @@ export class ArticleService {
 
   constructor(private http: HttpClient, private authService: AuthService ) { }
 
-  getPostsByUser(): Observable<any>{
+  getArticlesByUser(): Observable<any>{
     const id = this.authService.getAuthentfiedUserId();
     return this.http.get<any[]>(this.url , this.httpOptions);
   }
+
+  searchArticlesByKeywords(keywords: string): Observable<any>{
+
+    return this.http.get<any[]>(this.url + '?page=1&content=' + keywords , this.httpOptions);
+  }
+
 }

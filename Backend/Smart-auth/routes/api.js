@@ -3,12 +3,13 @@ const router = express.Router();
 const request = require('request');
 
 //uri for the api backend, TODO: Add it to a configuration file
-const uri = 'http://localhost:8000/api'
+const uri = 'http://localhost:8000'
 
 /* GET Resource */
 router.get('/*', function(req, res, next) {
+
     let options = {
-        uri: uri+req.path,
+        uri: uri+req.originalUrl,
         body: JSON.stringify(req.body),
         method: 'GET',
         headers: {
@@ -17,8 +18,7 @@ router.get('/*', function(req, res, next) {
     }
     request(options,  (err, rs, body) => {
         if (err) { return console.log(err); }
-        console.log(body)
-        res.send(body)
+        res.status(200).send(body)
     });
 });
 
@@ -26,7 +26,7 @@ router.get('/*', function(req, res, next) {
 /* Post Resource */
 router.post('/*', function(req, res, next) {
     let options = {
-        uri: uri+req.path,
+        uri: uri+req.originalUrl,
         body: JSON.stringify(req.body),
         method: 'POST',
         headers: {
@@ -35,14 +35,14 @@ router.post('/*', function(req, res, next) {
     }
     request(options, (err, rs, body) => {
         if (err) { return console.log(err); }
-        res.send(body)
+        res.status(201).send(body)
     });
 });
 
 /* Update Resource*/
 router.put('/*', function(req, res, next) {
     let options = {
-        uri: uri+req.path,
+        uri: uri+req.originalUrl,
         body: JSON.stringify(req.body),
         method: 'PUT',
         headers: {
@@ -52,14 +52,14 @@ router.put('/*', function(req, res, next) {
     request(options, (err, rs, body) => {
         if (err) { return console.log(err); }
         console.log(body);
-        res.send(body)
+        res.status(200).send(body)
     });
 });
 
 /* get a user by Id */
 router.delete('/*', function(req, res, next) {
     let options = {
-        uri: uri+req.path,
+        uri: uri+req.originalUrl,
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ router.delete('/*', function(req, res, next) {
     }
     request(options, (err, rs, body) => {
         if (err) { return console.log(err); }
-        res.send(body)
+        res.status(204).send(body)
     });
 });
 

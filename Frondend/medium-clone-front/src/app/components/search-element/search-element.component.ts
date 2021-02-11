@@ -14,4 +14,7 @@ export class SearchElementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goToArticle() {
+    console.log('clicked');
+  }
 }

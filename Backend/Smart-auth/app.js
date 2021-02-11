@@ -28,9 +28,8 @@ app.use(function(req, res, next) {
     //URLs that dont need authentication
     let openURLs = ['/','/login','/signup'];
     // token coming from the request header
-    let token= req.headers.authorization
-
-    if(openURLs.includes(req.path) ){
+    let token= req.headers.authorization;
+    if(openURLs.includes(req.path) || req.method==='OPTIONS' ){
         next();
     }
     else {
@@ -40,8 +39,7 @@ app.use(function(req, res, next) {
             next();
         } catch(err) {
             console.error(err)
-            if (req.method!=='OPTIONS') res.status(401).json('This endpoint needs authentication. Please login or verify the token');
-            if (req.method==='OPTIONS') res.send();
+             res.status(401).json('This endpoint needs authentication. Please login or verify the token');
         }
     }
 });

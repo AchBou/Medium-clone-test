@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
               public articleService: ArticleService) { }
 
   ngOnInit(): void {
-    this.articleService.getPostsByUser().subscribe((res) => {
+    this.articleService.getArticlesByUser().subscribe((res) => {
       const randomArticleId = this.getRandomInt(res.length);
       this.currentArticle = res[randomArticleId];
       console.log(this.currentArticle);

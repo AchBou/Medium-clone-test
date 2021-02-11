@@ -1,5 +1,5 @@
-<mat-card>
-  <mat-card-title>{{result.title}}</mat-card-title>
+<mat-card class="result" (click)="goToArticle()">
+  <mat-card-title>{{result.name}}</mat-card-title>
 
   <mat-card-content>
     {{result.content}}

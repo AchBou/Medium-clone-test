@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ArticleService} from '../../services/articles/article.service';
 
 @Component({
   selector: 'app-search-section',
@@ -7,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchSectionComponent implements OnInit {
 
-  results = [{
-    title: 'a title',
-    content: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.'
-  }];
+  results = [];
 
-  constructor() { }
+  constructor(public articleService: ArticleService) { }
 
   ngOnInit(): void {
   }
 
+  search(e): void {
+    this.articleService.searchArticlesByKeywords(e).subscribe((res) => {
+      this.results = res;
+    }, error => {
+      console.log(error);
+    });
+  }
 }
