@@ -16,3 +16,8 @@
 button{
   float: right;
 }
+
+.error{
+  margin: 50px auto;
+  text-align: center;
+}

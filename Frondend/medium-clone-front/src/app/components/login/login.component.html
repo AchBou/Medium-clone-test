@@ -23,4 +23,11 @@
   </form>
 
   <button mat-flat-button color="primary" (click)="submit()">Submit</button>
+
+  <div class="error">
+    <mat-error *ngIf="errorMsg">
+      {{errorMsg}}
+    </mat-error>
+  </div>
+
 </div>

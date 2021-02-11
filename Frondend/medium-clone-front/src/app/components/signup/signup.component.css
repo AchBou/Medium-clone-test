@@ -15,3 +15,16 @@
 button{
   float: right;
 }
+
+.error{
+  margin: 50px auto;
+  text-align: center;
+}
+
+.success{
+  margin: 50px auto;
+  text-align: center;
+}
+.success p {
+  color: green;
+}

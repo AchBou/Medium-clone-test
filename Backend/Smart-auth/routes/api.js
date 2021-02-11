@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require('request');
 
 //uri for the api backend, TODO: Add it to a configuration file
-const uri = 'http://localhost:8001/api'
+const uri = 'http://localhost:8000/api'
 
 /* GET Resource */
 router.get('/*', function(req, res, next) {
@@ -17,7 +17,7 @@ router.get('/*', function(req, res, next) {
     }
     request(options,  (err, rs, body) => {
         if (err) { return console.log(err); }
-        //console.log(body)
+        console.log(body)
         res.send(body)
     });
 });

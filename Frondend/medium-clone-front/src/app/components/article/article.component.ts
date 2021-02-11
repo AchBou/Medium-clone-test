@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
+import {ArticleService} from '../../services/articles/article.service';
 
 const THUMBUP_ICON = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px">
@@ -20,11 +21,18 @@ export class ArticleComponent implements OnInit {
   liked = false;
   interesting = true;
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MatIconRegistry,
+              sanitizer: DomSanitizer,
+              public articleService: ArticleService) {
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
   }
 
   ngOnInit(): void {
+    this.articleService.getPostsByUser().subscribe((res) => {
+      console.log(res);
+    }, err => {
+      console.error(err.error);
+    });
   }
 
 }

@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ]);
 
   checkBoxControl = new FormControl('auto');
+  errorMsg = '';
 
   constructor( public authService: AuthService, public router: Router) { }
 
@@ -29,7 +30,15 @@ export class LoginComponent implements OnInit {
   submit(): void {
     const email = this.emailFormControl.value;
     const pwd = this.pwdFormControl.value;
-    this.authService.login(email, pwd);
-    this.router.navigate(['/']);
+    this.authService.login(email, pwd).subscribe((res) => {
+      if (res) {
+        console.log('res' + res);
+        localStorage.setItem('token', JSON.stringify(res));
+        this.router.navigate(['/']);
+      }
+    } , (err) => {
+      console.error(err);
+      this.errorMsg = err.error;
+    });
   }
 }

@@ -16,12 +16,19 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET, POST ,DELETE, PUT');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, Accept");
+    next();
+});
+
 //the middleware for handling non-authenticated requests
-const requireAuth = (req, res, next) => {
+app.use(function(req, res, next) {
     //URLs that dont need authentication
     let openURLs = ['/','/login','/signup'];
     // token coming from the request header
-    let token= req.headers.token
+    let token= req.headers.authorization
 
     if(openURLs.includes(req.path) ){
         next();
@@ -33,12 +40,11 @@ const requireAuth = (req, res, next) => {
             next();
         } catch(err) {
             console.error(err)
-            res.send("This endpoint requires authentication. Please log in!");
+            if (req.method!=='OPTIONS') res.status(401).json('This endpoint needs authentication. Please login or verify the token');
+            if (req.method==='OPTIONS') res.send();
         }
     }
-}
-
-app.use(requireAuth);
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -33,15 +33,15 @@ router.post('/signup', (req, res) => {
         else {
             {
                 if(result[0]) {
-                    res.send('User already exits')
+                    res.status(403).send('User already exits')
                 }
                 else {
                     // Storing the user into the database
                     userDAO.addUser( data,function (err, result) {
                         if (err) {
-                            res.send(err) }
+                            res.status(400).send(err) }
                         else{
-                            res.json(result.affectedRows); }
+                            res.status(201).json(result.affectedRows); }
                     });
                 }
             }
@@ -52,7 +52,9 @@ router.post('/signup', (req, res) => {
 
 /* signing in a user */
 router.post('/login', (req, res) => {
+    console.log(req.body)
     const { email, password } = req.body;
+    console.log(email,password)
     const hashedPassword = getHashedPassword(password);
 
     userDAO.getUserByLoginInfo( [email],function (err, result) {
@@ -63,7 +65,7 @@ router.post('/login', (req, res) => {
                 if(result[0] && result[0].password==hashedPassword)
                 { const Token = jwt.sign({"user_id": result[0].id}, mySecret);
                     res.json(Token); }
-                else res.send("utilisateur ou mot de passe inconnu");
+                else res.status(401).send("Utilisateur ou mot de passe incorrect");
             }
 
         }

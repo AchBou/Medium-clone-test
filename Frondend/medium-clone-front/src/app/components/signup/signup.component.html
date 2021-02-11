@@ -28,14 +28,19 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Confirm Password</mat-label>
-      <input type="password" matInput [formControl]="pwdFormControl">
-      <mat-error *ngIf="pwdFormControl.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="pwdFormControl.hasError('required')">
-        Password is <strong>required</strong>
+      <input type="password" matInput [formControl]="pwdCFormControl">
+      <mat-error *ngIf="pwdCFormControl.hasError('matchPassword')">
+        Password confirmation is <strong>required</strong>
       </mat-error>
     </mat-form-field>
   </form>
-  <button mat-flat-button color="primary">Create account</button>
+  <button mat-flat-button color="primary" (click)="submit()">Create account</button>
+  <div class="error">
+    <mat-error *ngIf="msg.isError">
+      {{msg.text}}
+    </mat-error>
+    <p *ngIf="!msg.isError">
+      {{msg.text}}
+    </p>
+  </div>
 </div>
