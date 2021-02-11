@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ArticleService} from '../../services/articles/article.service';
+import {Article} from '../../models/article.interface';
+import {AuthService} from '../../services/auth/auth.service';
 
 const THUMBUP_ICON = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px">
@@ -17,21 +18,27 @@ const THUMBUP_ICON = `
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  favorite = true;
+  @Input() article: Article;
+
+  favorite = false;
   liked = false;
-  interesting = true;
+  interesting = false;
 
   constructor(iconRegistry: MatIconRegistry,
               sanitizer: DomSanitizer,
-              public articleService: ArticleService) {
+              public authService: AuthService) {
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
   }
 
   ngOnInit(): void {
-    this.articleService.getPostsByUser().subscribe((res) => {
-      console.log(res);
-    }, err => {
-      console.error(err.error);
+    this.article.reactions.forEach((reaction) => {
+      if ( reaction.owner.id === this.authService.getAuthentfiedUserId()){
+        switch (reaction.type){
+          case 'liked': this.liked = true; break;
+          case 'favorite': this.favorite = true; break;
+          case 'interesting': this.interesting = true; break;
+        }
+      }
     });
   }
 

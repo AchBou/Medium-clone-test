@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
+import {ArticleService} from '../../services/articles/article.service';
+import {Article} from '../../models/article.interface';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +12,25 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  currentArticle: Article;
+
+  constructor(private authService: AuthService,
+              private router: Router,
+              public articleService: ArticleService) { }
 
   ngOnInit(): void {
+    this.articleService.getPostsByUser().subscribe((res) => {
+      const randomArticleId = this.getRandomInt(res.length);
+      this.currentArticle = res[randomArticleId];
+      console.log(this.currentArticle);
+    }, err => {
+      console.error(err.error);
+    });
+  }
+
+  // function to return random article from the articles list of a user
+  private getRandomInt(max): number {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   logout(): void{

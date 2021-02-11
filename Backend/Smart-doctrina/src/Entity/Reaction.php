@@ -44,14 +44,14 @@ class Reaction
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="reaction")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"reaction:read"})
+     * @Groups({"reaction:read","reaction:write"})
      */
     private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reactions")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"reaction:read","reaction:write"})
+     * @Groups({"reaction:read","reaction:write","article:read"})
      */
     private $owner;
 

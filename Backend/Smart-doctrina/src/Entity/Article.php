@@ -84,13 +84,13 @@ class Article
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article")
      * @Groups({"article:read"})
      */
-    private $comment;
+    private $comments;
 
     /**
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="article")
      * @Groups({"article:read"})
      */
-    private $reaction;
+    private $reactions;
 
     public function __construct()
     {
@@ -220,15 +220,15 @@ class Article
     /**
      * @return Collection|Comment[]
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setArticle($this);
         }
 
@@ -237,7 +237,7 @@ class Article
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comment->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getArticle() === $this) {
                 $comment->setArticle(null);
@@ -250,15 +250,15 @@ class Article
     /**
      * @return Collection|Reaction[]
      */
-    public function getReaction(): Collection
+    public function getReactions(): Collection
     {
-        return $this->reaction;
+        return $this->reactions;
     }
 
     public function addReaction(Reaction $reaction): self
     {
-        if (!$this->reaction->contains($reaction)) {
-            $this->reaction[] = $reaction;
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
             $reaction->setArticle($this);
         }
 
@@ -267,7 +267,7 @@ class Article
 
     public function removeReaction(Reaction $reaction): self
     {
-        if ($this->reaction->removeElement($reaction)) {
+        if ($this->reactions->removeElement($reaction)) {
             // set the owning side to null (unless already changed)
             if ($reaction->getArticle() === $this) {
                 $reaction->setArticle(null);

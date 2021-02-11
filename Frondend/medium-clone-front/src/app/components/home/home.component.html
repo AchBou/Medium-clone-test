@@ -2,10 +2,10 @@
   <button mat-button color="primary" (click)="logout()">Logout</button>
 </div>
 <div class="container" fxLayout="row" fxLayoutAlign="space-between">
-  <div fxFlex="60" class="col">
-    <app-article></app-article>
+  <div fxFlex="60" class="col"  *ngIf="currentArticle" >
+    <app-article [article]="currentArticle"></app-article>
     <div class="comments">
-      <app-comment-section></app-comment-section>
+      <app-comment-section [comments]="currentArticle.comments"></app-comment-section>
     </div>
   </div>
   <mat-divider [vertical]="true"></mat-divider>

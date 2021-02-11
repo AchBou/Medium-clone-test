@@ -1,5 +1,5 @@
 <mat-card>
-  <app-comment></app-comment>
+  <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
   <div class="new">
     <form class="comment-form">
       <mat-form-field class="new-field">

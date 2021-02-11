@@ -18,7 +18,6 @@ export class ArticleService {
 
   getPostsByUser(): Observable<any>{
     const id = this.authService.getAuthentfiedUserId();
-    console.log(id);
     return this.http.get<any[]>(this.url , this.httpOptions);
   }
 }
