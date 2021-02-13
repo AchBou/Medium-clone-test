@@ -21,6 +21,7 @@ import { CommentSectionComponent } from './components/comment-section/comment-se
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ArticleDialogComponent} from './components/article/article-dialog/article.dialog';
+import {TagSearchbarComponent} from './components/tag-searchbar/tag-searchbar.component';
 
 
 
@@ -37,7 +38,8 @@ import {ArticleDialogComponent} from './components/article/article-dialog/articl
     AuthSpaceComponent,
     HomeComponent,
     CommentSectionComponent,
-    ArticleDialogComponent
+    ArticleDialogComponent,
+    TagSearchbarComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocomplete, MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -27,7 +29,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCardModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule {}
