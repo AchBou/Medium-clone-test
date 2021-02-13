@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {DomSanitizer} from '@angular/platform-browser';
 import {ArticleService} from '../../services/articles/article.service';
 import {Article} from '../../models/article.interface';
 
@@ -37,4 +36,5 @@ export class HomeComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
 }

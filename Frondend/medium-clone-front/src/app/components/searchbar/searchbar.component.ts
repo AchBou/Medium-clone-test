@@ -10,8 +10,7 @@ export class SearchbarComponent implements OnInit {
 
   @Output() searchEvent = new EventEmitter<string>();
 
-  searchFormControl = new FormControl('', [
-  ]);
+  value: any;
 
   constructor() { }
 
@@ -20,8 +19,12 @@ export class SearchbarComponent implements OnInit {
 
   submit(ev: KeyboardEvent): void {
     if ( ev.keyCode === 13){
-      const searchValue = this.searchFormControl.value;
-      this.searchEvent.emit(searchValue);
+      this.searchEvent.emit(this.value);
     }
+  }
+
+  clear(): void {
+    this.value = '';
+    this.searchEvent.emit(this.value);
   }
 }

@@ -22,8 +22,10 @@ export class ArticleService {
   }
 
   searchArticlesByKeywords(keywords: string): Observable<any>{
-
     return this.http.get<any[]>(this.url + '?page=1&content=' + keywords , this.httpOptions);
   }
 
+  getArticleById(id: number): Observable<any> {
+    return this.http.get<any[]>(this.url + '/' + id , this.httpOptions);
+  }
 }

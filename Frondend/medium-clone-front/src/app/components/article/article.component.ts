@@ -2,7 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Article} from '../../models/article.interface';
-import {AuthService} from '../../services/auth/auth.service';
+import {Reaction} from '../../models/reaction.interface';
+import {ReactionService} from '../../services/reactions/reaction.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ArticleDialogComponent} from './article-dialog/article.dialog';
 
 const THUMBUP_ICON = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px">
@@ -20,26 +23,63 @@ const THUMBUP_ICON = `
 export class ArticleComponent implements OnInit {
   @Input() article: Article;
 
-  favorite = false;
-  liked = false;
-  interesting = false;
+  userReaction: Reaction;
 
   constructor(iconRegistry: MatIconRegistry,
               sanitizer: DomSanitizer,
-              public authService: AuthService) {
+              public reactionService: ReactionService,
+              public dialog: MatDialog
+  ) {
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
   }
 
   ngOnInit(): void {
-    this.article.reactions.forEach((reaction) => {
-      if ( reaction.owner.id === this.authService.getAuthentfiedUserId()){
-        switch (reaction.type){
-          case 'liked': this.liked = true; break;
-          case 'favorite': this.favorite = true; break;
-          case 'interesting': this.interesting = true; break;
-        }
-      }
+    this.refreshReaction();
+  }
+
+  likedClicked(): void {
+    this.reactionClicked('liked');
+  }
+
+  favClicked(): void {
+    this.reactionClicked('favorite');
+  }
+
+  interstClicked(): void {
+    this.reactionClicked('interesting');
+  }
+
+  reactionClicked(type): void {
+    if ( !this.userReaction ){
+      this.reactionService.addReaction(type, this.article.id).subscribe(() => {
+        this.refreshReaction();
+      });
+    }
+    else if (!(this.userReaction.type === type)){
+      this.reactionService.updateReaction(this.userReaction.id, type, this.article.id).subscribe(() => {
+        this.refreshReaction();
+      });
+    }
+    else {
+      this.reactionService.removeReaction( this.userReaction.id).subscribe(() => {
+        this.refreshReaction();
+      });
+    }
+  }
+
+  private refreshReaction(): void{
+    this.reactionService.getReactions(this.article.id).subscribe((res) => {
+      this.userReaction = res[0];
     });
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ArticleDialogComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

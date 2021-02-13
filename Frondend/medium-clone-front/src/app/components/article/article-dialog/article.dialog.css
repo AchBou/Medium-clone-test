@@ -1,0 +1,10 @@
+h2 {
+  text-align: center;
+}
+mat-form-field{
+  width: 100%;
+}
+
+mat-dialog-content{
+  padding: 20px 40px;
+}

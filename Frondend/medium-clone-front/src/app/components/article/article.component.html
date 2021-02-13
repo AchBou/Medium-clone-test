@@ -1,18 +1,30 @@
 <div class="actions">
-  <mat-icon >feed</mat-icon>
-  <mat-icon >mode_edit</mat-icon>
+  <button mat-button mat-icon-button aria-label="Clear" (click)="openDialog()">
+    <mat-icon>feed</mat-icon>
+  </button>
+
+  <button mat-button mat-icon-button aria-label="Clear" (click)="openDialog()">
+    <mat-icon>mode_edit</mat-icon>
+  </button>
+
 </div>
 <h1>{{article.name}}</h1>
-<h3>Author: {{article.owner.username}} ~ Published at {{article.updatedAt|date}}</h3>
+<h3>Author: {{article.owner.username}} ~ <span>Published at {{article.updatedAt|date}}</span></h3>
 <p>{{article.content}}
 </p>
 <div class="reactions">
-  <mat-icon *ngIf="!liked" svgIcon="thumbs-up"></mat-icon>
-  <mat-icon *ngIf="liked">thumb_up</mat-icon>
+  <div class="like" (click)="likedClicked()">
+    <mat-icon *ngIf="this.userReaction && userReaction.type === 'liked'" >thumb_up</mat-icon>
+    <mat-icon *ngIf="!this.userReaction || !(userReaction.type === 'liked')" svgIcon="thumbs-up"></mat-icon>
+  </div>
 
-  <mat-icon *ngIf="favorite">favorite</mat-icon>
-  <mat-icon *ngIf="!favorite">favorite_outline</mat-icon>
+  <div class="favorite" (click)="favClicked()">
+    <mat-icon *ngIf="this.userReaction && userReaction.type === 'favorite'">favorite</mat-icon>
+    <mat-icon *ngIf="!this.userReaction ||!(userReaction.type === 'favorite')">favorite_outline</mat-icon>
+  </div>
 
-  <mat-icon *ngIf="interesting">lightbulb</mat-icon>
-  <mat-icon *ngIf="!interesting">lightbulb_outline</mat-icon>
+  <div class="interesting" (click)="interstClicked()">
+    <mat-icon *ngIf="this.userReaction && userReaction.type === 'interesting'">lightbulb</mat-icon>
+    <mat-icon *ngIf="!this.userReaction || !(userReaction.type === 'interesting')">lightbulb_outline</mat-icon>
+  </div>
 </div>

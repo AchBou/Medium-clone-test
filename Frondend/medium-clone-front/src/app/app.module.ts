@@ -20,6 +20,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {ArticleDialogComponent} from './components/article/article-dialog/article.dialog';
 
 
 
@@ -36,6 +37,7 @@ import {HttpClientModule} from '@angular/common/http';
     AuthSpaceComponent,
     HomeComponent,
     CommentSectionComponent,
+    ArticleDialogComponent
   ],
   imports: [
     BrowserModule,

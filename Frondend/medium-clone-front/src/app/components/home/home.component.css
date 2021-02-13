@@ -6,6 +6,10 @@ mat-grid-tile {
   height: 90%;
 }
 
+.spinner{
+  margin: 50px auto;
+}
+
 .col{
   padding: 20px;
 }

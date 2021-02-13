@@ -16,10 +16,13 @@ export class SearchSectionComponent implements OnInit {
   }
 
   search(e): void {
-    this.articleService.searchArticlesByKeywords(e).subscribe((res) => {
-      this.results = res;
-    }, error => {
-      console.log(error);
-    });
+    if (e === '') {this.results = []; }
+    else{
+      this.articleService.searchArticlesByKeywords(e).subscribe((res) => {
+        this.results = res;
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 }
