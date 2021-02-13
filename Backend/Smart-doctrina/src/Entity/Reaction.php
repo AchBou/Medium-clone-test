@@ -6,11 +6,19 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ReactionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
+
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"reaction:read"}},
  *     denormalizationContext={"groups"={"reaction:write"}}
  *)
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "owner": "exact",
+ *     "article": "exact"
+ * })
  * @ORM\Entity(repositoryClass=ReactionRepository::class)
  */
 class Reaction

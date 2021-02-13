@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET, POST ,DELETE, PUT');
+    res.header('Access-Control-Allow-Methods', 'GET, POST , DELETE, PUT');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, Accept");
     next();
 });
@@ -35,9 +35,9 @@ app.use(function(req, res, next) {
     else {
         try {
             let decoded = jwt.verify(token, mySecret);
-            console.log(decoded);
             next();
         } catch(err) {
+            console.log('test')
             console.error(err)
              res.status(401).json('This endpoint needs authentication. Please login or verify the token');
         }

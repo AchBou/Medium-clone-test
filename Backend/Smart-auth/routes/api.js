@@ -17,7 +17,7 @@ router.get('/*', function(req, res, next) {
         }
     }
     request(options,  (err, rs, body) => {
-        if (err) { return console.log(err); }
+        if (err) { res.send(err) }
         res.status(200).send(body)
     });
 });
@@ -30,11 +30,13 @@ router.post('/*', function(req, res, next) {
         body: JSON.stringify(req.body),
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            "content-type": 'application/json',
+            'Accept': 'application/json'
         }
     }
     request(options, (err, rs, body) => {
-        if (err) { return console.log(err); }
+        console.log(options.uri)
+        if (err) { res.send(err); }
         res.status(201).send(body)
     });
 });
@@ -46,12 +48,12 @@ router.put('/*', function(req, res, next) {
         body: JSON.stringify(req.body),
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            "content-type": 'application/json',
+            'Accept': 'application/json'
         }
     }
     request(options, (err, rs, body) => {
-        if (err) { return console.log(err); }
-        console.log(body);
+        if (err) { res.send(err); }
         res.status(200).send(body)
     });
 });
@@ -62,12 +64,12 @@ router.delete('/*', function(req, res, next) {
         uri: uri+req.originalUrl,
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': 'application/json'
         }
     }
     request(options, (err, rs, body) => {
-        if (err) { return console.log(err); }
-        res.status(204).send(body)
+        if (err) { res.send(err) }
+        res.status(204).send('resource deleted')
     });
 });
 
