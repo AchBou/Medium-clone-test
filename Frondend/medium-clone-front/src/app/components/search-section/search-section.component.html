@@ -2,6 +2,10 @@
   <app-searchbar (searchEvent)="search($event)"></app-searchbar>
 </div>
 
+<div class="tag-searchbar">
+  <app-tag-searchbar (tagChange)="searchByTag($event)"></app-tag-searchbar>
+</div>
+
 <mat-divider></mat-divider>
 <h3>{{results.length}} results found</h3>
 <div class="search-result">

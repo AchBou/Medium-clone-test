@@ -1,3 +1,6 @@
+.container{
+  position: relative;
+}
 .reactions{
   text-align: end;
 }
@@ -9,12 +12,20 @@
   cursor: pointer;
   margin-left: 20px;
 }
-.actions{
-  float: right;
+
+.new{
+  position: absolute;
+  right: 0;
+}
+
+.edit{
+  position: relative;
+  top: -20px;
 }
 
 h1{
   font-size: 40px;
+  display: inline-block;
 }
 
 h3 span{

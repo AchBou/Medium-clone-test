@@ -1,10 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {TagService} from '../../services/tags/tag.service';
+import {Tag} from '../../models/tag.interface';
 
 @Component({
   selector: 'app-tag-searchbar',
@@ -17,14 +19,19 @@ export class TagSearchbarComponent {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
-  tags: string[] = ['Lemon'];
-  allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  filteredTags: Observable<Tag[]>;
+  tags: Tag[] = [];
+  allTags: Tag[] = [];
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor() {
+  @Output() tagChange = new EventEmitter<Tag[]>();
+
+  constructor(public tagService: TagService) {
+    this.tagService.getAllTags().subscribe((res) => {
+      this.allTags = res;
+    });
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
@@ -36,7 +43,8 @@ export class TagSearchbarComponent {
 
     // Add our tag
     if ((value || '').trim()) {
-      this.tags.push(value.trim());
+      const tag: Tag = {articles: [], createdAt: undefined, updatedAt: undefined, id: null, title: value.trim()};
+      this.tags.push(tag);
     }
 
     // Reset the input value
@@ -45,25 +53,33 @@ export class TagSearchbarComponent {
     }
 
     this.tagCtrl.setValue(null);
+    this.tagChange.emit(this.tags);
   }
 
-  remove(tag: string): void {
+  remove(tag: Tag): void {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+    this.tagChange.emit(this.tags);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
+    this.tags.push(event.option.value);
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
+    this.tagChange.emit(this.tags);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(value: string): Tag[] {
+    if (typeof(value) === 'string'){
+      const filterValue = value.toLowerCase();
 
-    return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
+      return this.allTags.filter(tag => tag.title.toLowerCase().indexOf(filterValue) === 0);
+    }
+    else{
+      return this.allTags;
+    }
   }
 }

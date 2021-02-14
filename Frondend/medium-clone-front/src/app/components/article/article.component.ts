@@ -75,7 +75,7 @@ export class ArticleComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ArticleDialogComponent, {
-      width: '450px'
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -2,15 +2,21 @@
 <mat-dialog-content class="mat-typography">
   <p>Whats the name of the article?</p>
   <mat-form-field>
-    <mat-label>title</mat-label>
+    <mat-label>Title</mat-label>
     <input matInput [(ngModel)]="title">
   </mat-form-field>
   <p>Write your article: </p>
   <mat-form-field>
     <textarea placeholder="Type here" matInput [(ngModel)]="content"></textarea>
   </mat-form-field>
+  <mat-form-field class="reference">
+    <input matInput [readonly]="true" placeholder="{{reference}}">
+  </mat-form-field>
+  <mat-checkbox class="draft-checkbox" [(ngModel)]="draft">Draft ?</mat-checkbox>
+  <p>Add tags: </p>
+  <app-tag-searchbar (tagChange)="handleTagChange($event)"></app-tag-searchbar>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Publish</button>
+  <button mat-button (click)="submit()"  cdkFocusInitial>Publish</button>
 </mat-dialog-actions>
