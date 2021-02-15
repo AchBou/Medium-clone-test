@@ -18,7 +18,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ApiFilter(SearchFilter::class, properties={
  *     "owner": "exact",
- *     "content": "partial"
+ *     "content": "partial",
+ *     "tags": "exact",
  * })
  */
 class Article
