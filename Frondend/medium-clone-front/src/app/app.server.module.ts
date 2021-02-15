@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+// @ts-ignore
 import { ServerModule } from '@angular/platform-server';
 
 import { AppModule } from './app.module';

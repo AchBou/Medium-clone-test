@@ -39,7 +39,7 @@ export class ArticleDialogComponent  {
   }
 
   submit(): void{
-    if (this.data.id){
+    if (this.data){
       this.updateArticle();
     }
     else{

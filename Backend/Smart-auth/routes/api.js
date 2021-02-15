@@ -17,7 +17,8 @@ router.get('/*', function(req, res, next) {
         }
     }
     request(options,  (err, rs, body) => {
-        if (err) { res.send(err) }
+        if (err) {
+            console.log(err);res.send(err) }
         res.status(200).send(body)
     });
 });
