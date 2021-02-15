@@ -73,12 +73,12 @@ class Tag
         return $this;
     }
 
-    public function getcreatedAt(): ?string
+    public function getcreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setcreatedAt(string $createdAt): self
+    public function setcreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
