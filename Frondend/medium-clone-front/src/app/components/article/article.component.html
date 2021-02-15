@@ -17,20 +17,24 @@
     {{article.content}}
   </p>
 
+  <mat-chip-list aria-label="Tags">
+    <mat-chip color="secondary" selected *ngFor="let tag of article.tags">{{tag.title}}</mat-chip>
+  </mat-chip-list>
+
   <div class="reactions">
     <div class="like" (click)="likedClicked()">
       <mat-icon *ngIf="this.userReaction && userReaction.type === 'liked'" >thumb_up</mat-icon>
-      <mat-icon *ngIf="!this.userReaction || !(userReaction.type === 'liked')" svgIcon="thumbs-up"></mat-icon>
+      <mat-icon color="accent"  *ngIf="!this.userReaction || !(userReaction.type === 'liked')" svgIcon="thumbs-up"></mat-icon>
     </div>
 
     <div class="favorite" (click)="favClicked()">
-      <mat-icon *ngIf="this.userReaction && userReaction.type === 'favorite'">favorite</mat-icon>
-      <mat-icon *ngIf="!this.userReaction ||!(userReaction.type === 'favorite')">favorite_outline</mat-icon>
+      <mat-icon color="warn"  *ngIf="this.userReaction && userReaction.type === 'favorite'">favorite</mat-icon>
+      <mat-icon color="primary"  *ngIf="!this.userReaction ||!(userReaction.type === 'favorite')">favorite_outline</mat-icon>
     </div>
 
     <div class="interesting" (click)="interstClicked()">
-      <mat-icon *ngIf="this.userReaction && userReaction.type === 'interesting'">lightbulb</mat-icon>
-      <mat-icon *ngIf="!this.userReaction || !(userReaction.type === 'interesting')">lightbulb_outline</mat-icon>
+      <mat-icon color="accent" *ngIf="this.userReaction && userReaction.type === 'interesting'">lightbulb</mat-icon>
+      <mat-icon color="primary" *ngIf="!this.userReaction || !(userReaction.type === 'interesting')">lightbulb_outline</mat-icon>
     </div>
   </div>
 </div>

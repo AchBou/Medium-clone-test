@@ -3,7 +3,7 @@
     <img src="https://www.w3schools.com/w3images/avatar2.png">
   </div>
 
-  <p mat-button [matMenuTriggerFor]="menu" class="comment" >{{comment.content}}</p>
+  <p mat-button [matMenuTriggerFor]="menu" class="comment" >{{comment.content}}<span class="time">{{comment.updatedAt | date:'short'}}</span></p>
   <mat-menu #menu="matMenu" xPosition="after">
     <button mat-menu-item (click)="openDialog()">Modifier</button>
     <button mat-menu-item (click)="delete()">Supprimer</button>
