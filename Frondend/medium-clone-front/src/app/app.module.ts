@@ -44,7 +44,7 @@ import {CommentDialogComponent} from './components/comment/comment-dialog/commen
     CommentDialogComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
