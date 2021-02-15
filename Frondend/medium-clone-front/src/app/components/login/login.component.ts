@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
+import {LocalstorageService} from '../../services/localstorage/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,11 @@ export class LoginComponent implements OnInit {
     Validators.required,
   ]);
 
-  checkBoxControl = new FormControl('auto');
   errorMsg = '';
 
-  constructor( public authService: AuthService, public router: Router) { }
+  constructor( public authService: AuthService,
+               private localStorage: LocalstorageService,
+               public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, pwd).subscribe((res) => {
       if (res) {
         console.log('res' + res);
-        localStorage.setItem('token', JSON.stringify(res));
+        this.localStorage.setItem('token', JSON.stringify(res));
         this.router.navigate(['/']);
       }
     } , (err) => {

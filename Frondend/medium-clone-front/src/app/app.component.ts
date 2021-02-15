@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  static isBrowser = new BehaviorSubject<boolean>(null);
   title = 'medium-clone-front';
+
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+    AppComponent.isBrowser.next(isPlatformBrowser(platformId));
+  }
 }
