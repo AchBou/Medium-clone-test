@@ -12,7 +12,8 @@ export class CommentSectionComponent implements OnInit {
 
   comments: Comment[];
 
-  commentFC = new FormControl('');
+  isLoading = true;
+  content: string;
 
   constructor(public commentService: CommentService) { }
 
@@ -22,6 +23,7 @@ export class CommentSectionComponent implements OnInit {
 
   refreshComments(): void{
     this.commentService.getComments(this.articleId).subscribe((res => {
+      this.isLoading = false;
       this.comments = res;
     }), (error) => {
       console.log(error);
@@ -29,12 +31,11 @@ export class CommentSectionComponent implements OnInit {
   }
 
   submit(): void{
-    const content = this.commentFC.value;
-    if (content){
-      console.log(this.articleId);
-      this.commentService.addComment(content, this.articleId).subscribe(res => {
+    if (this.content){
+      this.commentService.addComment(this.content, this.articleId).subscribe(res => {
         console.log(res);
         this.refreshComments();
+        this.content = '';
       });
     }
   }

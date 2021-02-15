@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Tag} from '../../../models/tag.interface';
 import {ArticleService} from '../../../services/articles/article.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Article} from '../../../models/article.interface';
 
 @Component({
   selector: 'app-article-dialog',
@@ -9,7 +10,7 @@ import {MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['article.dialog.css']
   ,
 })
-export class ArticleDialogComponent {
+export class ArticleDialogComponent  {
   title: string;
   content: string;
   draft = false;
@@ -18,8 +19,19 @@ export class ArticleDialogComponent {
   tagsURI = [];
 
   constructor(public articleService: ArticleService,
-              public dialogRef: MatDialogRef<ArticleDialogComponent>) {
-    this.reference = Math.random().toString(36).substring(7);
+              public dialogRef: MatDialogRef<ArticleDialogComponent>,
+              @Inject(MAT_DIALOG_DATA)public data: any) {
+    if (!data){
+      this.reference = Math.random().toString(36).substring(7);
+    }
+    else{
+      console.log(data);
+      this.title = this.data.name;
+      this.content = this.data.content;
+      this.reference = this.data.reference;
+      this.draft = this.data.draft;
+      this.tags = this.data.tags;
+    }
   }
 
   handleTagChange(tags: Tag[]): void {

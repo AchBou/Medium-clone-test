@@ -14,7 +14,7 @@
   </mat-form-field>
   <mat-checkbox class="draft-checkbox" [(ngModel)]="draft">Draft ?</mat-checkbox>
   <p>Add tags: </p>
-  <app-tag-searchbar (tagChange)="handleTagChange($event)"></app-tag-searchbar>
+  <app-tag-searchbar [tags]="tags" (tagChange)="handleTagChange($event)"></app-tag-searchbar>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

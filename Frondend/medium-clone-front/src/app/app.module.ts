@@ -22,6 +22,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ArticleDialogComponent} from './components/article/article-dialog/article.dialog';
 import {TagSearchbarComponent} from './components/tag-searchbar/tag-searchbar.component';
+import {CommentDialogComponent} from './components/comment/comment-dialog/comment.dialog';
 
 
 
@@ -39,7 +40,8 @@ import {TagSearchbarComponent} from './components/tag-searchbar/tag-searchbar.co
     HomeComponent,
     CommentSectionComponent,
     ArticleDialogComponent,
-    TagSearchbarComponent
+    TagSearchbarComponent,
+    CommentDialogComponent
   ],
   imports: [
     BrowserModule,

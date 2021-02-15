@@ -1,5 +1,5 @@
 import {User} from './user.interface';
-import {Reaction} from './reaction.interface';
+import {Tag} from './tag.interface';
 
 export interface Article{
   id: number;
@@ -8,8 +8,7 @@ export interface Article{
   content: string;
   draft: boolean;
   owner: User;
-  comments: Comment[];
-  reactions: Reaction[];
+  tags: Tag[];
   createdAt: Date;
   updatedAt: Date;
 }

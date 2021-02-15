@@ -1,13 +1,12 @@
 <mat-card>
-  <mat-spinner *ngIf="!comments" class="spinner" [diameter]="70"></mat-spinner>
-  <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+  <mat-spinner *ngIf="isLoading" class="spinner" [diameter]="70"></mat-spinner>
+  <p class="no-comment" *ngIf="comments && comments.length==0">Pas de commentaire. Soyez le premier !</p>
+  <app-comment *ngFor="let comment of comments" [comment]="comment" (commentEvent)="refreshComments()"></app-comment>
   <div class="new">
-    <form class="comment-form">
       <mat-form-field class="new-field">
-        <mat-label>Leave a comment</mat-label>
-        <textarea [formControl]="commentFC" rows="4" matInput placeholder="Write a comment..."></textarea>
+        <mat-label>Laissez un commentaire</mat-label>
+        <textarea [(ngModel)]="content" rows="4" matInput ></textarea>
       </mat-form-field>
-    </form>
     <div class="btn">
       <button mat-raised-button color="primary" (click)="submit()">Comment</button>
     </div>

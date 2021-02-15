@@ -73,13 +73,21 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
+  openDialog(data): void {
     const dialogRef = this.dialog.open(ArticleDialogComponent, {
-      width: '600px'
+      width: '600px', data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  openDialogEdit(): void {
+    this.openDialog(this.article);
+  }
+
+  openDialogNew(): void {
+    this.openDialog({});
   }
 }

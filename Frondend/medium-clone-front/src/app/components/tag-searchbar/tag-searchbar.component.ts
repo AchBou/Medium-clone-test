@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -20,7 +20,7 @@ export class TagSearchbarComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
   filteredTags: Observable<Tag[]>;
-  tags: Tag[] = [];
+  @Input() tags: Tag[] = [];
   allTags: Tag[] = [];
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;

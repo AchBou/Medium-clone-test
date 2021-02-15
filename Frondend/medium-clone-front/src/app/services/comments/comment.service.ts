@@ -30,8 +30,8 @@ export class CommentService {
     return this.http.post<any[]>(this.url , comment, this.httpOptions);
   }
 
-  updateComment(id: number, type: string , articleId: number): Observable<any>{
-    const comment = {type, article: '/api/articles/' + articleId , owner: '/api/users/' + this.authUserId};
+  updateComment(id: number, content: string ): Observable<any>{
+    const comment = {content, owner: '/api/users/' + this.authUserId};
     return this.http.put<any[]>(this.url + '/' + id, comment , this.httpOptions);
   }
 

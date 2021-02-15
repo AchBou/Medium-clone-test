@@ -7,11 +7,15 @@ mat-card {
   padding: 10px;
 }
 
+mat-label{
+  padding: 10px;
+}
 
 textarea{
   width: 95%;
   background-color: white;
   padding: 10px;
+  border-radius: 15px;
 }
 
 .spinner{
@@ -23,10 +27,4 @@ textarea{
   flex-direction: column;
   width: 70%;
   align-items: flex-end;
-}
-
-.comment-form {
-  min-width: 150px;
-  width: 100%;
-  align-self: center;
 }
