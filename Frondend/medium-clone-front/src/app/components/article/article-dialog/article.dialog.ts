@@ -39,6 +39,15 @@ export class ArticleDialogComponent  {
   }
 
   submit(): void{
+    if (this.data.id){
+      this.updateArticle();
+    }
+    else{
+      this.addArticle();
+    }
+  }
+
+  addArticle(): void{
     this.tagsURI = [];
     this.tags.forEach(tag => {
       this.tagsURI.push('/api/tags/' + tag.id);
@@ -51,5 +60,17 @@ export class ArticleDialogComponent  {
     });
   }
 
+  updateArticle(): void{
+    this.tagsURI = [];
+    this.tags.forEach(tag => {
+      this.tagsURI.push('/api/tags/' + tag.id);
+    });
+
+    this.articleService.updateArticle(this.data.id, this.title,  this.content, this.draft, this.tagsURI, this.reference).subscribe(res => {
+      if (res.id) {
+        this.dialogRef.close();
+      }
+    });
+  }
 
 }

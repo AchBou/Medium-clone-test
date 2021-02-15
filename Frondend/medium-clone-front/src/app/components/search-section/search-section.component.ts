@@ -28,6 +28,8 @@ export class SearchSectionComponent implements OnInit {
   }
 
   searchByTag(tags: Tag[]): void {
-    console.log('search by tag');
+    this.articleService.searchArticlesByTags(tags).subscribe(res => {
+      this.results = res;
+    });
   }
 }

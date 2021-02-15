@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
+import {Tag} from '../../models/tag.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,15 @@ export class ArticleService {
 
   searchArticlesByKeywords(keywords: string): Observable<any>{
     return this.http.get<any[]>(this.url + '?page=1&content=' + keywords , this.httpOptions);
+  }
+
+  searchArticlesByTags(tags: Tag[]): Observable<any>{
+    let query = '';
+    for (const tag of tags){
+      query += '&tags%5B%5D=' + tag.id;
+    }
+    console.log(query);
+    return this.http.get<any[]>(this.url + '?page=1' + query , this.httpOptions);
   }
 
   getArticleById(id: number): Observable<any> {
