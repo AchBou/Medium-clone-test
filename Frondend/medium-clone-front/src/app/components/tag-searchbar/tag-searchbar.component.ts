@@ -41,10 +41,12 @@ export class TagSearchbarComponent {
     const input = event.input;
     const value = event.value;
 
+    console.log(this.tags);
     // Add our tag
     if ((value || '').trim()) {
-      const tag: Tag = {articles: [], createdAt: undefined, updatedAt: undefined, id: null, title: value.trim()};
-      this.tags.push(tag);
+      this.tagService.addTag(value.trim()).subscribe(res => {
+        this.tags.push(res);
+      });
     }
 
     // Reset the input value

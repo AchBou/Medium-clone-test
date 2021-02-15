@@ -29,8 +29,8 @@ export class TagService {
     return this.http.get<any[]>(this.url + query , this.httpOptions);
   }
 
-  addTag(title: string , articleId: number): Observable<any>{
-    const tag = {title, article: '/api/articles/' + articleId };
+  addTag(title: string ): Observable<any>{
+    const tag = {title };
     return this.http.post<any[]>(this.url , tag, this.httpOptions);
   }
 

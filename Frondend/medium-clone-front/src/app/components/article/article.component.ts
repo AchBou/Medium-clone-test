@@ -88,6 +88,6 @@ export class ArticleComponent implements OnInit {
   }
 
   openDialogNew(): void {
-    this.openDialog({});
+    this.openDialog(null);
   }
 }
