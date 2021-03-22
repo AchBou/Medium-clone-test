@@ -1,0 +1,80 @@
+version: '3.7'
+
+services:
+  front:
+    container_name: web
+    build:
+      context: Frondend/medium-clone-front
+      dockerfile: Dockerfile
+    volumes:
+      - './Frondend/medium-clone-front:/app'
+      - '/app/node_modules'
+    ports:
+      - '4200:4200'
+    depends_on:
+      - express
+
+  express:
+    container_name: smart-auth
+    build:
+      context: Backend\Smart-auth
+      dockerfile: Dockerfile
+    volumes:
+      - './Backend/Smart-auth:/app'
+    ports:
+      - '3000:3000'
+    environment:
+    - DATABASE_URL=mysql://root:root@database:3306/medium_clone?serverVersion=5.7
+    depends_on:
+      - database
+    restart: always
+
+  # Configure the database
+  database:
+    image: mariadb:10.4.14
+    container_name: mysql_db
+    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: medium_clone
+    restart: always
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/data:/var/lib/mysql
+
+# php
+  php:
+      build:
+          context: ./Backend/smart-doctrina/docker/php/
+          dockerfile: Dockerfile
+      container_name: smart-doctrina
+      restart: always
+      environment:
+      - DATABASE_URL=mysql://root:root@database:3306/medium_clone?serverVersion=5.7
+      ports:
+          - "9000:9000"
+      volumes:
+        - ./Backend/smart-doctrina:/var/www
+      depends_on:
+        - database
+
+  nginx:
+      container_name: nginx-service
+      build:
+        context: ./Backend/smart-doctrina/docker/nginx
+      volumes:
+        - ./Backend/smart-doctrina:/var/www
+        - ./Backend/smart-doctrina/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./Backend/smart-doctrina/docker/nginx/sites/:/etc/nginx/sites-available
+        - ./Backend/smart-doctrina/docker/nginx/conf.d/:/etc/nginx/conf.d
+        - ./Backend/smart-doctrina/logs:/var/log
+      depends_on:
+        - php
+        - express
+      ports:
+        - "8000:80"
+      restart: always

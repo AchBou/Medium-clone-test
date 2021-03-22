@@ -33,11 +33,15 @@ Dockerless:
 	 ng serve
 	 ```
 
-Docker: **In progress**
+Docker:
+Run the following command in the root of the project:
+	```
+    docker-compose up --build
+	```
 
 # Choix techniques
 
-L'application a ete realise avec le stack technique suivant:
+L'application a été realiser avec le stack technique suivant:
 
 
  - **Frontend**: Angular v11
