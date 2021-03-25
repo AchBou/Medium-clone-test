@@ -1,7 +1,13 @@
 # Welcome to Medium-clone-hackaton!
 
-Hi! Ceci est un archive applicatif concernant l'application Medium Clone. Elle met en oeuvre un stack technique de 3 chouches: Partie Frontend, Partie Backend pour Authentification, et Partie Backend pour APIs.
+Hi! Ceci est un archive applicatif concernant l'application Medium Clone. Elle met en oeuvre un stack technique de 3 chouches: Partie Frontend, Partie Backend pour Authentification et APIs.
 
+
+# New version Highlights and Bug Fixing:
+- Switching to full Express Backend
+- Using Sequelize as ORM for Database communication
+- Re-orgnizing frontend Architecture (See [Frontend project Architecture](#Frontend project Architecture))
+- Adding correct routing for single articles
 
 # Requirements
 
@@ -9,24 +15,17 @@ Pour installer l'application, les composants suivants doivent etre disponible su
  - GIT
  - Docker
  - Angular
- - Serveur PHP ( Ngnix ou Apache )
  - NodeJS
  - MySql
 
 
-
 ## Installing
 Dockerless:
- - Smart Auth
+ - Backend Node
 	```
 	npm install
 	node app.js
 	```
- - Smart Doctorina:
-	 ```
-	 compose install
-	php -S 127.0.0.1:8000 -t public
-	 ```
  - Front angular
 	 ```
 	 npm install
@@ -49,11 +48,6 @@ L'application a été realiser avec le stack technique suivant:
 	> - Angular Material: Elements graphiques
 
 
-
--  **Backend**: ExpressJS - Symofny 4
-	> -Developement API base sur l'outil API Plateform.
-	> -Utilisation de libraire de securite JWT et module Node native Crypto pour la securite.
-
 - **BDD**: Mysql.
 
 
@@ -70,6 +64,78 @@ L'application Frontend est disponible en rendu cote serveur et rendu cote client
 	- Serveur de test: `npm run serve:ssr`
 	- Build final: `npm run buid:ssr`
 
+## Notable Functionalities:
+   - Home Page land on a random article
+   - Tags suggestions with autocomplete
+   - Generated reference
+   - Utility storage for server side rendering ( since LocalStorage does not exist on Server)
+
+## Frontend project Architecture
+
+```
+📦src
+ ┣ 📂app    
+ ┃ ┣ 📂components     // Core REUSABLE (Therefore grouped) Components
+ ┃ ┃ ┣ 📂article
+ ┃ ┃ ┣ 📂comments
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┗ 📂signup
+ ┃ ┣ 📂models       // Interfaces for the entities
+ ┃ ┣ 📂pages        // main pages loaded by the routing logic
+ ┃ ┃ ┣ 📂auth-space
+ ┃ ┃ ┗ 📂home
+ ┃ ┣ 📂services  
+ ┃ ┃ ┣ 📂api        // API calling services
+ ┃ ┃ ┃ ┣ 📂articles
+ ┃ ┃ ┣ 📂auth       // Authentification services
+ ┃ ┃ ┣ 📂guards     // Guard blocking Unauthenticated routes
+ ┃ ┃ ┃ ┗ 📂auth-guard     
+ ┃ ┃ ┗ 📂utils                // utility services
+ ┃ ┃ ┃ ┗ 📂localstorage       // A service to handle the SSR localstorage
+ ┃ ┣ 📜app-routing.module.ts  // Routing module
+ ┃ ┣ 📜app.component.css
+ ┃ ┣ 📜app.component.html
+ ┃ ┣ 📜app.component.spec.ts
+ ┃ ┣ 📜app.component.ts
+ ┃ ┣ 📜app.module.ts
+ ┃ ┣ 📜app.server.module.ts
+ ┃ ┗ 📜material.module.ts   // Service grouping Angular Material Modules
+ ┣ 📂assets
+ ┣ 📂environments
+ ┃ ┣ 📜environment.prod.ts
+ ┃ ┗ 📜environment.ts        // Storing the api URI
+ ┣ 📜favicon.ico
+ ┣ 📜index.html
+ ┣ 📜main.server.ts      // SSR main entrypoint
+ ┣ 📜main.ts             // Main entrypoint
+ ┣ 📜polyfills.ts
+ ┣ 📜styles.css
+ ┗ 📜test.ts
+```
+
+## Backend project Architecture
+```
+📦MediumCloneAPI
+ ┣ 📂bin                  // Server configuration and starting point
+ ┃ ┗ 📜www
+ ┣ 📂config               // (Archived for demo purposes and later to be saved/read from env variables)
+ ┃ ┣ 📜auth.config.js     // Configuration regarding authentication
+ ┃ ┗ 📜db.config.js       // Configuration regarding Sequelize
+ ┣ 📂Controllers          // Controllers
+ ┣ 📂DB
+ ┃ ┗ 📜index.js           // DB config and instancing
+ ┣ 📂middlewares          // Utility middlewares
+ ┃ ┣ 📜authJWT.js                 // Auth guard
+ ┃ ┣ 📜index.js
+ ┃ ┗ 📜verifySignUp.js            // SignUp verification ( such as existing identifications)
+ ┣ 📂models               // Sequelize Models
+ ┣ 📂routes               // Endpoints mapping
+ ┣ 📂services             // Contracts for the controllers
+ ┣ 📜app.js               // Main application entrypoint
+ ┣ 📜package-lock.json
+ ┗ 📜package.json
+```
 
 ## Authors
 

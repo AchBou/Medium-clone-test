@@ -7,7 +7,7 @@ export interface Article{
   reference: string;
   content: string;
   draft: boolean;
-  owner: User;
+  user: User;
   tags: Tag[];
   createdAt: Date;
   updatedAt: Date;

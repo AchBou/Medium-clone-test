@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {LocalstorageService} from '../../services/localstorage/localstorage.service';
+import {LocalstorageService} from '../../services/utils/localstorage/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -34,13 +34,14 @@ export class LoginComponent implements OnInit {
     const pwd = this.pwdFormControl.value;
     this.authService.login(email, pwd).subscribe((res) => {
       if (res) {
-        console.log('res' + res);
-        this.localStorage.setItem('token', JSON.stringify(res));
+        this.localStorage.clear();
+        console.log(res.accessToken);
+        this.localStorage.setItem('token', res.accessToken);
         this.router.navigate(['/']);
       }
     } , (err) => {
       console.error(err);
-      this.errorMsg = err.error;
+      this.errorMsg = err.error.message;
     });
   }
 }

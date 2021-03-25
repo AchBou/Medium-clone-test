@@ -3,7 +3,7 @@ import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Article} from '../../models/article.interface';
 import {Reaction} from '../../models/reaction.interface';
-import {ReactionService} from '../../services/reactions/reaction.service';
+import {ReactionService} from '../../services/api/reactions/reaction.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ArticleDialogComponent} from './article-dialog/article.dialog';
 
@@ -68,7 +68,7 @@ export class ArticleComponent implements OnInit {
   }
 
   private refreshReaction(): void{
-    this.reactionService.getReactions(this.article.id).subscribe((res) => {
+    this.reactionService.getReactionsByArticle(this.article.id).subscribe((res) => {
       this.userReaction = res[0];
     });
   }

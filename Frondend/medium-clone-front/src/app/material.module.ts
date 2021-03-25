@@ -34,7 +34,6 @@ import {MatMenuModule} from '@angular/material/menu';
     MatChipsModule,
     MatAutocompleteModule,
     MatMenuModule
-
 ]
 })
 export class MaterialModule {}
